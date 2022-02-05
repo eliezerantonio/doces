@@ -13,7 +13,7 @@ class AdminUserScreen extends StatelessWidget {
         ),
         body: Consumer<AdminUserManager>(
           builder: (_, adminUserManager, __) {
-            return AlphabetListScrollView(
+            return ListView.builder(
               itemBuilder: (_, index) {
                 return ListTile(
                   title: Text(
@@ -27,11 +27,7 @@ class AdminUserScreen extends StatelessWidget {
                   ),
                 );
               },
-              highlightTextStyle:
-                  const TextStyle(color: Colors.black, fontSize: 20),
-              indexedHeight: (index) => 80,
-              strList: adminUserManager.names,
-              showPreview: true,
+              itemCount: adminUserManager.names.length,
             );
           },
         ));
