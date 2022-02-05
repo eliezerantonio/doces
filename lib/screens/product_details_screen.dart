@@ -1,7 +1,9 @@
 import 'package:danny_doces/models/products/product.dart';
+import 'package:danny_doces/models/users/user_provider.dart';
 import 'package:danny_doces/screens/edit_product_screen.dart';
 import 'package:danny_doces/widgets/messenger.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
   final Product product;
@@ -10,6 +12,9 @@ class ProductDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final admin =
+        Provider.of<UserProvider>(context, listen: false).adminEnabled;
+
     return Scaffold(
       backgroundColor: Colors.pink[200],
       body: SafeArea(
@@ -171,35 +176,36 @@ class ProductDetailsScreen extends StatelessWidget {
                 icon: const Icon(Icons.arrow_back),
               ),
             ),
-            Positioned(
-              top: 0,
-              right: 5,
-              child: Row(
-                children: [
-                  IconButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (_) => EditProductScreen(product)));
-                    },
-                    icon: const Icon(
-                      Icons.edit,
+            if (admin)
+              Positioned(
+                top: 0,
+                right: 5,
+                child: Row(
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => EditProductScreen(product)));
+                      },
+                      icon: const Icon(
+                        Icons.edit,
+                      ),
                     ),
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      product.delete();
-                      Navigator.pop(context);
-                      messenger("Produto eliminado", context);
-                    },
-                    icon: const Icon(
-                      Icons.delete,
+                    IconButton(
+                      onPressed: () {
+                        product.delete();
+                        Navigator.pop(context);
+                        messenger("Produto eliminado", context);
+                      },
+                      icon: const Icon(
+                        Icons.delete,
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            )
+                  ],
+                ),
+              )
           ],
         ),
       ),

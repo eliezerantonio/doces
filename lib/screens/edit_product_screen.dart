@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:animate_do/animate_do.dart';
 import 'package:danny_doces/models/products/product.dart';
+import 'package:danny_doces/models/users/user_provider.dart';
 import 'package:danny_doces/widgets/custom_button.dart';
 import 'package:danny_doces/widgets/custom_textfield.dart';
 import 'package:danny_doces/widgets/messenger.dart';
@@ -38,8 +39,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-
-    return ChangeNotifierProvider.value(
+     return ChangeNotifierProvider.value(
       value: product,
       child: Scaffold(
         key: globalKey,

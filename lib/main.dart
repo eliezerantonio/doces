@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 
 import 'models/products/product_provider.dart';
+import 'models/users/admin_user_manager.dart';
 import 'models/users/user_provider.dart';
 import 'screens/edit_product_screen.dart';
 import 'screens/login_screen.dart';
@@ -39,7 +40,13 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (BuildContext context) => ProductProvider(),
           lazy: false,
-        )
+        ),
+        ChangeNotifierProxyProvider<UserProvider, AdminUserManager>(
+            create: (_) => AdminUserManager(),
+            lazy: false,
+            update: (_, userManager, adminUserManager) {
+              return adminUserManager!..updateUser(userManager);
+            }),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -49,7 +56,7 @@ class MyApp extends StatelessWidget {
             primaryIconTheme: Theme.of(context)
                 .primaryIconTheme
                 .copyWith(color: Colors.black)),
-        home:  const SplashScreen(),
+        home: const SplashScreen(),
       ),
     );
   }

@@ -4,6 +4,7 @@ import 'package:animate_do/animate_do.dart';
 
 import 'package:danny_doces/models/users/user_model.dart';
 import 'package:danny_doces/models/users/user_provider.dart';
+import 'package:danny_doces/screens/home_screen.dart';
 import 'package:danny_doces/widgets/custom_button.dart';
 import 'package:danny_doces/widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
@@ -169,7 +170,10 @@ class RegisterScreen extends StatelessWidget {
                                 backgroundColor: Colors.pink[300],
                               ),
                             );
-                            Navigator.pop(context);
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) => const HomeScreen()));
                           },
                           onFail: (e) {
                             print("---------------falhou---------------------");

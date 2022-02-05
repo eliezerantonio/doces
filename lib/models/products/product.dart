@@ -11,6 +11,7 @@ class Product with ChangeNotifier {
   String? id;
   String? name;
   String? description;
+  String? category;
   dynamic? image;
   num? price;
 
@@ -18,6 +19,7 @@ class Product with ChangeNotifier {
     this.id,
     this.name,
     this.image,
+    this.category,
     this.description,
     this.price,
   });
@@ -27,14 +29,15 @@ class Product with ChangeNotifier {
     id = document.id;
     name = data['name'] as String;
     image = data['image'] as String;
+    category = data['category'] as String;
     price = data['price'] as num;
     description = data['description'] as String;
   }
 
   DocumentReference get firestoreRef =>
-      FirebaseFirestore.instance.collection("products").doc(id);
+      FirebaseFirestore.instance.collection("products2").doc(id);
   firebase_storage.Reference get storageRef =>
-      firebase_storage.FirebaseStorage.instance.ref("products");
+      firebase_storage.FirebaseStorage.instance.ref("products2");
 
   Future<void> save({
     required dynamic imageFile,
@@ -54,6 +57,7 @@ class Product with ChangeNotifier {
         'name': name,
         'description': description,
         'price': price,
+        'category': category,
         'image': image ?? ''
       };
 
@@ -84,6 +88,7 @@ class Product with ChangeNotifier {
       id: id,
       name: name,
       description: description,
+      category: category,
       image: image,
     );
   }
@@ -99,5 +104,10 @@ class Product with ChangeNotifier {
   set loading(bool value) {
     _loading = value;
     notifyListeners();
+  }
+
+  @override
+  String toString() {
+    return 'category: $category';
   }
 }
